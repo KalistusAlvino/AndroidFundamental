@@ -1,0 +1,87 @@
+package com.example.githubuser.ui
+
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import androidx.activity.viewModels
+import androidx.annotation.StringRes
+import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
+import com.example.githubuser.R
+import com.example.githubuser.data.database.entity.FavoriteEntity
+import com.example.githubuser.data.response.DetailUserResponse
+import com.example.githubuser.data.viewModel.DetailViewModel
+import com.example.githubuser.databinding.ActivityDetailUserBinding
+import com.example.githubuser.ui.insert.FavoriteViewModels
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
+
+class DetailUserActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityDetailUserBinding
+    private val detailViewModel by viewModels<DetailViewModel>()
+
+    companion object {
+        const val EXTRA_FAVORITE = "extra_favorite"
+        const val ALERT_DIALOG_CLOSE = 10
+        const val ALERT_DIALOG_DELETE = 20
+        const val EXTRA_DETAIL = "username"
+
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.tab_followers,
+            R.string.tab_following
+        )
+    }
+
+    private var isEdit = false
+    private var favorite: FavoriteEntity? = null
+
+    private lateinit var favoriteViewModels: FavoriteViewModels
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        binding = ActivityDetailUserBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        supportActionBar?.hide()
+
+        val extraDetail = intent.getStringExtra(EXTRA_DETAIL) as String
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, extraDetail)
+
+        detailViewModel.cariDetailUser(extraDetail)
+        detailViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
+        detailViewModel.detailUser.observe(this) { detailUser ->
+            setDetailUserData(detailUser)
+        }
+
+        val viewPager: ViewPager2 = findViewById(R.id.view_pager)
+        viewPager.adapter = sectionsPagerAdapter
+
+        val tabs: TabLayout = findViewById(R.id.tabs)
+        TabLayoutMediator(tabs, viewPager) { tab, position ->
+            tab.text = resources.getString(TAB_TITLES[position])
+        }.attach()
+
+        supportActionBar?.elevation = 0f
+    }
+
+
+    private fun setDetailUserData(detailUser: DetailUserResponse) {
+        binding.tvUserNameDetail.text = detailUser.login
+        binding.tvNamaDetail.text = detailUser.name
+        binding.tvJumlahFollowers.text = "${detailUser.followers} Followers"
+        binding.tvJumlahFollowing.text = "${detailUser.following} Following"
+        Glide.with(binding.root.context)
+            .load(detailUser.avatarUrl)
+            .into(binding.detailProfileImage)
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+}
