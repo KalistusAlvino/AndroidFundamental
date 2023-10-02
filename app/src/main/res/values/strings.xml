@@ -15,4 +15,6 @@
     <string name="list_favorite">List Favorite</string>
     <string name="dark_mode">Dark Mode </string>
     <string name="setting">Setting</string>
+    <string name="followers">%d Followers</string>
+    <string name="following">%d Following</string>
 </resources>

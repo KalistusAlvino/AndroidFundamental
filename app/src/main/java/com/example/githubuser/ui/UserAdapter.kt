@@ -41,7 +41,7 @@ class UserAdapter : ListAdapter<ItemsItem,UserAdapter.MyViewHolder>(DIFF_CALLBAC
         }
     }
 
-    class MyViewHolder(private val binding: ItemRowUsersBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MyViewHolder(private val binding: ItemRowUsersBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user : ItemsItem){
             Glide.with(binding.root.context)
                 .load(user.avatarUrl)

@@ -9,11 +9,6 @@ import com.example.githubuser.R
 import com.example.githubuser.ui.MainActivity
 
 class SplashActivity : AppCompatActivity() {
-    companion object {
-        private const val DURATION_ANIMATION = 2000L
-        private const val ALPHA_VAL = 1f
-    }
-
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,5 +22,9 @@ class SplashActivity : AppCompatActivity() {
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }
+    }
+    companion object {
+        private const val DURATION_ANIMATION = 2000L
+        private const val ALPHA_VAL = 1f
     }
 }

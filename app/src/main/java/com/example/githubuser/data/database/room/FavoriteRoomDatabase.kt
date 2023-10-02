@@ -16,12 +16,10 @@ abstract class FavoriteRoomDatabase : RoomDatabase() {
 
         @JvmStatic
         fun getDatabase(context: Context): FavoriteRoomDatabase {
-            if (INSTANCE == null) {
-                synchronized(FavoriteRoomDatabase::class.java) {
-                    INSTANCE = Room.databaseBuilder(
-                        context.applicationContext,
-                        FavoriteRoomDatabase::class.java, "fav_Database"
-                    )
+            if (INSTANCE == null){
+                synchronized(FavoriteRoomDatabase::class.java){
+                    INSTANCE = Room.databaseBuilder(context.applicationContext,
+                        FavoriteRoomDatabase::class.java,"favorite_database")
                         .build()
                 }
             }

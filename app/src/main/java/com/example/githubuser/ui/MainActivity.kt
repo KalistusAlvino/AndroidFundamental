@@ -19,6 +19,7 @@ import com.example.githubuser.databinding.ActivityMainBinding
 import com.example.githubuser.ui.theme.SettingPreference
 import com.example.githubuser.ui.theme.ThemeActivity
 import com.example.githubuser.ui.theme.ThemeViewModel
+import com.example.githubuser.data.viewModel.ViewModelFactory
 import com.example.githubuser.ui.theme.dataStore
 import retrofit2.Call
 import retrofit2.Callback
@@ -56,8 +57,11 @@ class MainActivity : AppCompatActivity() {
                         startActivity(themeSetting)
                         true
                     }
-
-                    else -> false
+                    R.id.favorite -> {
+                        val favIntent = Intent(this@MainActivity, FavUserActivity::class.java)
+                        startActivity(favIntent)
+                        true
+                    } else -> false
                 }
             }
             searchView.setupWithSearchBar(searchBar)

@@ -1,4 +1,4 @@
-package com.example.githubuser.ui
+package com.example.githubuser.data.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.NewInstanceFactory

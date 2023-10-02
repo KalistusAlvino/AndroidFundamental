@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Splash"
         tools:targetApi="31">
         <activity
+            android:name=".ui.FavUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.theme.ThemeActivity"
             android:exported="false" />
         <activity
@@ -32,7 +35,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>
